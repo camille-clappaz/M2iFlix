@@ -1,5 +1,5 @@
 <template>
-    <h2>Inscription</h2>
+    <h2>Connexion</h2>
     <Form @submit="connexion" v-slot="{ meta }">
         <div>
             <label for="nom">Nom</label>
@@ -24,6 +24,7 @@ import { useRouter } from "vue-router";
 
 
 export default {
+
     components: {
         Field, Form, ErrorMessage
     },
@@ -47,19 +48,21 @@ export default {
             axios
                 .get(`http://localhost:5555/users?nom=${values.nom}&mdp=${values.mdp}`, values)
                 .then(res => {
-                    if (res.data && res.data.length > 0) { this.$router.push('/films') }
-                    else {
-                        this.$router.push('/')
+                        if (res.data && res.data.length > 0) {
+                            localStorage.setItem('user', res.data[0]);
+                            this.$router.push('/films')
+                        }
+                        else {
+                            this.$router.push('/')
+                        }
                     }
-                }
+                
                 );
         }
     },
     mounted() {
-    if (localStorage.name) {
-      this.name = localStorage.name;
-    }
-  },
+
+    },
 }
 </script>
 <style scoped></style>

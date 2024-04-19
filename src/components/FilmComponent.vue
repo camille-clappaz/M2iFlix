@@ -1,10 +1,10 @@
 <template >
-    <h2>Les nouveautés </h2>
     <ul >
-        <li v-for='(elt, ind) in films'>
-            {{ elt.poster_path }}
+        <li  >
+        {{ film.title }}
+        <!-- <img src="https://image.tmdb.org/t/p/original"{{ film.poster_path }} alt=""> -->
        
-            <button @click="ajouterFilm(elt.id, ind)">
+            <button >
                 Ajouter à ma liste
             </button>
 
@@ -14,15 +14,12 @@
 </template>
 <script setup>
 import { onMounted, reactive } from "vue";
-import axios from "axios";
+import { object } from 'yup';
+import axios from 'axios';
+const poster = 'https://image.tmdb.org/t/p/original'
+const movie=  reactive([])
 
-const films = reactive([]);
-
-onMounted(() => {
-    axios
-        .get(`http://localhost:5173/films`)
-        .then(res => console.log(res.data))
- })
+defineProps({film: object})
 
 </script>
 <style></style>
